@@ -12,6 +12,10 @@ module load git/2.23.0-GCCcore-9.3.0-nodocs
 module load Nextflow/21.03
 module load singularity/rpm
 
+export TOWER_ACCESS_TOKEN=eyJ0aWQiOiA3OTAxfS4xNGY5NTFmOWNiZmEwNjZhOGFkYzliZTg3MDc4YWI4ZTRiYTk4ZmI5
+export NXF_VER=21.03.0
+
+
 cd /mnt/project/Aqua-Faang/dat/cscqtl/cscQTL_dev
 
 
@@ -25,7 +29,7 @@ meta='/mnt/ScratchProjects/Aqua-Faang/dat_projects/cscqtl_paper/data/meta_358_eu
 
 #nextflow run main.nf -resume --outdir "EUR_358_samples" --reads $reads --genotype $genotype --meta $meta --consensus 3 --coloc true --circall true --ciri2 true --circexplorer2 true -with-report -profile cluster
 
-nextflow run main.nf -resume --outdir "EUR_358_samples" --reads $reads --genotype $genotype --meta $meta --consensus 3 --coloc true --circall true --ciri2 true --circexplorer2 true -profile cluster
+nextflow run main.nf -resume --outdir "EUR_358_samples" --reads $reads --genotype $genotype --meta $meta --consensus 3 --coloc true --circall true --ciri2 true --circexplorer2 true -profile cluster -with-tower
 
 
 
