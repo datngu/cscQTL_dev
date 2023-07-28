@@ -519,7 +519,9 @@ process CIRCALL_index_cdna {
 
 process CIRCALL_index_bsj {
     container 'ndatth/rna-tools:v0.0.0'
-
+    memory '32 GB'
+    cpus 4
+    
     input:
     path "bsj.fa"
 
