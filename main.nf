@@ -438,6 +438,7 @@ process VCF_filtering {
     
     bcftools annotate -x INFO in.vcf.gz | bcftools +fill-tags | bcftools view -i 'INFO/AF >= 0.05 & INFO/HWE > 1e-6' > genotype_filtered_tem.vcf
 
+    grep -v ^rna_id meta.csv | cut -d , -f 2 > genotype_sample.txt
 
     bcftools view genotype_filtered_tem.vcf -S genotype_sample.txt | sed 's/chr//g' | bgzip > genotype_filtered.vcf.gz
     bcftools index -t genotype_filtered.vcf.gz
