@@ -446,7 +446,6 @@ process VCF_filtering {
     """
 }
 
-$params.maf
 
 
 process PCA_genotype { 
