@@ -502,8 +502,8 @@ process PCA_genotype {
 // CIRCALL
 process CIRCALL_index_cdna {
     container 'ndatth/rna-tools:v0.0.0'
-    memory '8 GB'
-    cpus 2
+    memory '32 GB'
+    cpus 4
 
     input:
     path "cdna.fa"
