@@ -33,7 +33,6 @@ params.genotype_PCs    = 4
 params.bsj_filter      = 2
 params.consensus       = 1
 params.exp_prop        = 0.3
-params.maf             = 0.05
 params.fdr             = 0.05
 params.fastqtl_window  = 1000000
 
@@ -66,7 +65,6 @@ log.info """\
     consensus           : $params.consensus
     exp_prop            : $params.exp_prop
     peer                : $params.peer
-    maf                 : $params.maf
     fdr                 : $params.fdr
     fastqtl_window      : $params.fastqtl_window
     genotype_PCs        : $params.genotype_PCs
@@ -386,15 +384,49 @@ process LIBSIZE_merge_samples {
 
 
 
-// GENOTYPE PROCESSING
+// // GENOTYPE PROCESSING
+// process VCF_filtering { 
+    
+//     publishDir "${params.trace_dir}/vcf_filtering", mode: 'symlink', overwrite: true
+//     container 'ndatth/qtl-package:v0.0.0'
+//     memory '8 GB'
+    
+//     input:
+//     path "in.vcf"
+//     path "meta.csv"
+ 
+//     output:
+//     tuple path("genotype_filtered.vcf.gz"), path("genotype_filtered.vcf.gz.tbi")
+ 
+//     script:
+//     """
+//     #"in.vcf"=tcel.vcf.gz
+//     #meta=/sigma4/projects/nf-circall-qtl/data/meta.csv
+//     plink --vcf in.vcf --make-bed --out genotype_raw --memory 8000
+//     plink --bfile genotype_raw --maf 0.05 --hwe 1e-6 --memory 8000 --make-bed --const-fid --out genotype_QCed
+//     plink --bfile genotype_QCed --memory 8000 --recode vcf-fid --out genotype_filtered_tem
+//     grep -v ^rna_id meta.csv | cut -d , -f 2 > genotype_sample.txt
+//     ## filtering sample and remove chr (if needed)
+//     bcftools view genotype_filtered_tem.vcf -S genotype_sample.txt | sed 's/chr//g' | bgzip > genotype_filtered.vcf.gz
+//     bcftools index -t genotype_filtered.vcf.gz
+//     rm genotype_raw*
+//     rm genotype_QCed*
+//     rm genotype_filtered_tem*
+//     """
+// }
+
+
+
+// GENOTYPE PROCESSING: use bcftools instead of plink
 process VCF_filtering { 
     
     publishDir "${params.trace_dir}/vcf_filtering", mode: 'symlink', overwrite: true
     container 'ndatth/qtl-package:v0.0.0'
     memory '8 GB'
+    cpus 4
     
     input:
-    path "in.vcf"
+    path "in.vcf.gz"
     path "meta.csv"
  
     output:
@@ -402,20 +434,19 @@ process VCF_filtering {
  
     script:
     """
-    #"in.vcf"=tcel.vcf.gz
-    #meta=/sigma4/projects/nf-circall-qtl/data/meta.csv
-    plink --vcf in.vcf --make-bed --out genotype_raw --memory 8000
-    plink --bfile genotype_raw --maf 0.05 --hwe 1e-6 --memory 8000 --make-bed --const-fid --out genotype_QCed
-    plink --bfile genotype_QCed --memory 8000 --recode vcf-fid --out genotype_filtered_tem
-    grep -v ^rna_id meta.csv | cut -d , -f 2 > genotype_sample.txt
-    ## filtering sample and remove chr (if needed)
+
+    
+    bcftools annotate -x INFO in.vcf.gz | bcftools +fill-tags | bcftools view -i 'INFO/AF >= 0.05 & INFO/HWE > 1e-6' > genotype_filtered_tem.vcf
+
+
     bcftools view genotype_filtered_tem.vcf -S genotype_sample.txt | sed 's/chr//g' | bgzip > genotype_filtered.vcf.gz
     bcftools index -t genotype_filtered.vcf.gz
-    rm genotype_raw*
-    rm genotype_QCed*
+
     rm genotype_filtered_tem*
     """
 }
+
+$params.maf
 
 
 process PCA_genotype { 
