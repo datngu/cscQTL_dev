@@ -20,7 +20,10 @@ export TOWER_ACCESS_TOKEN=eyJ0aWQiOiA3OTAxfS4xNGY5NTFmOWNiZmEwNjZhOGFkYzliZTg3MD
 
 reads="/mnt/project/Aqua-Faang/dat/40t-cell/total_rnas/*_{1,2}.fastq.gz"
 
-genotype="$PWD/tcel_hg38.vcf.gz"
+genotype="$PWD/data/tcel_hg38.vcf.gz"
+
+# wget https://github.com/datngu/data/releases/download/v.0.0.2/tcel_hg38.vcf.gz -O "$PWD/data/tcel_hg38.vcf.gz"
+
 
 meta='/mnt/ScratchProjects/Aqua-Faang/dat_projects/cscqtl_paper/data/meta_358_eur.csv'
 
