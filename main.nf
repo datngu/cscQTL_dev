@@ -557,7 +557,7 @@ process CIRCALL_pipeline {
     container 'ndatth/rna-tools:v0.0.0'
     publishDir "${params.outdir}/circall" , mode: 'copy', overwrite: true
     cpus 32
-    memory '45 GB'
+    memory '64 GB'
 
     input:
     path "genome.fa"
@@ -622,7 +622,7 @@ process CIRCALL_covariate_processing {
     
     publishDir "${params.trace_dir}/circall_qtl_input", mode: 'symlink', overwrite: true
     container 'ndatth/qtl-package:v0.0.0'
-    memory '4 GB'
+    memory '8 GB'
 
     input:
     path meta
@@ -740,7 +740,7 @@ process CIRCALL_export_all_peer_covariates {
     
     publishDir "${params.trace_dir}/circall_qtl_covariates", mode: 'symlink', overwrite: true
     container 'ndatth/qtl-package:v0.0.0'
-    memory '4 GB'
+    memory '8 GB'
 
     input:
     tuple val(n), path(n_peer_covariates)
@@ -851,7 +851,7 @@ process CIRI2_pipeline {
     container 'ndatth/rna-tools:v0.0.0'
     publishDir "${params.outdir}/ciri2", mode: 'copy', overwrite: true
     cpus 32
-    memory '45 GB'
+    memory '64 GB'
 
     input:
     path "genome.fa"
@@ -918,7 +918,7 @@ process CIRI2_covariate_processing {
     
     publishDir "${params.trace_dir}/ciri2_qtl_input"
     container 'ndatth/qtl-package:v0.0.0'
-    memory '4 GB'
+    memory '8 GB'
 
     input:
     path meta
@@ -1039,7 +1039,7 @@ process CIRI2_export_all_peer_covariates {
     
     publishDir "${params.trace_dir}/ciri2_qtl_covariates", mode: 'symlink', overwrite: true
     container 'ndatth/qtl-package:v0.0.0'
-    memory '4 GB'
+    memory '8 GB'
 
     input:
     tuple val(n), path(n_peer_covariates)
@@ -1136,7 +1136,7 @@ process STAR_index_genome {
     container 'ndatth/rna-tools:v0.0.0'
     publishDir "${params.trace_dir}/star_index", mode: 'symlink', overwrite: true
     cpus 32
-    memory '45 GB'
+    memory '64 GB'
     
 
     input:
@@ -1160,7 +1160,7 @@ process STAR_mapping {
     container 'ndatth/rna-tools:v0.0.0'
     publishDir "${params.trace_dir}/star_mapping", mode: 'symlink', overwrite: true
     cpus 32
-    memory '45 GB'
+    memory '64 GB'
 
     input:
     path "STAR_genome_index"
@@ -1276,7 +1276,7 @@ process CIRCEXP2_covariate_processing {
     
     publishDir "${params.trace_dir}/circexp2_qtl_input", mode: 'symlink', overwrite: true
     container 'ndatth/qtl-package:v0.0.0'
-    memory '4 GB'
+    memory '8 GB'
 
     input:
     path meta
@@ -1396,7 +1396,7 @@ process CIRCEXP2_export_all_peer_covariates {
     
     publishDir "${params.trace_dir}/circexp2_qtl_covariates", mode: 'symlink', overwrite: true
     container 'ndatth/qtl-package:v0.0.0'
-    memory '4 GB'
+    memory '8 GB'
 
     input:
     tuple val(n), path(n_peer_covariates)
@@ -1567,7 +1567,7 @@ process SALMON_covariate_processing {
     
     publishDir "${params.trace_dir}/salmon_qtl_input"
     container 'ndatth/qtl-package:v0.0.0'
-    memory '4 GB'
+    memory '8 GB'
 
     input:
     path meta
@@ -1691,7 +1691,7 @@ process SALMON_export_all_peer_covariates {
     
     publishDir "${params.trace_dir}/salmon_qtl_covariates", mode: 'symlink', overwrite: true
     container 'ndatth/qtl-package:v0.0.0'
-    memory '4 GB'
+    memory '8 GB'
 
     input:
     tuple val(n), path(n_peer_covariates)
@@ -1732,7 +1732,7 @@ process SALMON_qtl_mapping_nominal {
 
     publishDir "${params.outdir}/salmon_qtl_mapping_nominal", mode: 'copy', overwrite: true
     container 'ndatth/qtl-package:v0.0.0'
-    memory '4 GB'
+    memory '8 GB'
 
     input:
     path("covariates.tsv")
