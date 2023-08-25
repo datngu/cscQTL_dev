@@ -50,7 +50,7 @@ my $nrFwSplicedReadsProg = $scriptDir."/circRNA_finder_nrForwardSplicedReads.pl"
 
 ## Get all names of files and libraries to process
 my @samFiles = `ls $inDir*Chimeric.out.sam`;
-my @chimericFiles = `ls $inDir*Chimeric.out.junction`;
+my @chimericFiles = `ls $inDir*.junction`;
 my @junctionFiles = `ls $inDir*SJ.out.tab`;
 
 my @libnames = ();
