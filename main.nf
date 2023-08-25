@@ -1167,7 +1167,7 @@ process STAR_mapping {
     tuple val(pair_id), path(reads)
 
     output:
-    tuple val("${pair_id}"), path("${pair_id}.bam"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
+    tuple val("${pair_id}"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
 
     script:
     """
@@ -1182,7 +1182,8 @@ process STAR_mapping {
         --chimSegmentMin 10 \
         --chimOutType Junctions \
 		--outFileNamePrefix ${pair_id}
-        mv ${pair_id}Aligned.sortedByCoord.out.bam ${pair_id}.bam
+    
+    rm ${pair_id}Aligned.sortedByCoord.out.bam
     """
 }
 
@@ -1219,7 +1220,7 @@ process CIRCEXP2_pipeline {
 
     path "genome.fa"
     path "circexp2_annotation.txt"
-    tuple val("${pair_id}"), path("${pair_id}.bam"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
+    tuple val("${pair_id}"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
 
 
     output:
@@ -1227,7 +1228,7 @@ process CIRCEXP2_pipeline {
 
     script:
     """
-    CIRCexplorer2 parse -t STAR ${pair_id}.junction > CIRCexplorer2_parse.log
+    CIRCexplorer2 parse -t STAR ${pair_id}Chimeric.out.junction > CIRCexplorer2_parse.log
     CIRCexplorer2 annotate -r circexp2_annotation.txt -g genome.fa -b back_spliced_junction.bed -o ${pair_id}
     """
 }
