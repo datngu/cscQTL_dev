@@ -1214,12 +1214,14 @@ process CIRCEXP2_generate_annotation {
 process CIRCEXP2_pipeline {
     container 'ndatth/rna-tools:v0.0.0'
     publishDir "${params.outdir}/circexp2", mode: 'copy', overwrite: true
-    memory '2 GB'
+    memory '8 GB'
     
     input:
+
     path "genome.fa"
     path "circexp2_annotation.txt"
     tuple val("${pair_id}"), path("${pair_id}.bam"), path("${pair_id}.junction"), path("${pair_id}Chimeric.out.sam"), path("${pair_id}SJ.out.tab")
+
 
     output:
     path("${pair_id}")
