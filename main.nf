@@ -1167,7 +1167,7 @@ process STAR_mapping {
     tuple val(pair_id), path(reads)
 
     output:
-    tuple val("${pair_id}"), path("${pair_id}.bam"), path("${pair_id}.junction")
+    tuple val("${pair_id}"), path("${pair_id}.bam"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
 
     script:
     """
@@ -1183,7 +1183,6 @@ process STAR_mapping {
         --chimOutType Junctions \
 		--outFileNamePrefix ${pair_id}
         mv ${pair_id}Aligned.sortedByCoord.out.bam ${pair_id}.bam
-        mv ${pair_id}Chimeric.out.junction ${pair_id}.junction
     """
 }
 
@@ -1220,7 +1219,7 @@ process CIRCEXP2_pipeline {
 
     path "genome.fa"
     path "circexp2_annotation.txt"
-    tuple val("${pair_id}"), path("${pair_id}.bam"), path("${pair_id}.junction")
+    tuple val("${pair_id}"), path("${pair_id}.bam"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
 
 
     output:
