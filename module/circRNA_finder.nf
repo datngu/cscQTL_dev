@@ -18,5 +18,3 @@ process circRNA_FINDER_pipeline {
     rm -rf circRNA_finder
     """
 }
-
-
