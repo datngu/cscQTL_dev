@@ -1156,36 +1156,6 @@ process STAR_index_genome {
 
 // STAR_mapping(STAR_index_genome.out, read_pairs_ch)   
 
-// process STAR_mapping {
-//     container 'ndatth/rna-tools:v0.0.0'
-//     publishDir "${params.trace_dir}/star_mapping", mode: 'symlink', overwrite: true
-//     cpus 32
-//     memory '64 GB'
-
-//     input:
-//     path "STAR_genome_index"
-//     tuple val(pair_id), path(reads)
-
-//     output:
-//     tuple val("${pair_id}"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
-
-//     script:
-//     """
-//     STAR \
-// 		--runThreadN ${task.cpus} \
-// 		--twopassMode Basic \
-// 		--readFilesCommand zcat \
-// 		--outSAMtype BAM SortedByCoordinate \
-// 		--outSAMstrandField intronMotif \
-// 		--readFilesIn ${reads[0]} ${reads[1]} \
-// 		--genomeDir STAR_genome_index \
-//         --chimSegmentMin 10 \
-//         --chimOutType Junctions \
-// 		--outFileNamePrefix ${pair_id}
-    
-//     rm ${pair_id}Aligned.sortedByCoord.out.bam
-//     """
-// }
 
 process STAR_mapping {
     container 'ndatth/rna-tools:v0.0.0'
@@ -1262,27 +1232,6 @@ process CIRCEXP2_pipeline {
 }
 
 
-// process CIRCEXP2_pipeline {
-//     container 'ndatth/rna-tools:v0.0.0'
-//     publishDir "${params.outdir}/circexp2", mode: 'copy', overwrite: true
-//     memory '8 GB'
-    
-//     input:
-
-//     path "genome.fa"
-//     path "circexp2_annotation.txt"
-//     tuple val("${pair_id}"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
-
-
-//     output:
-//     path("${pair_id}")
-
-//     script:
-//     """
-//     CIRCexplorer2 parse -t STAR ${pair_id}Chimeric.out.junction > CIRCexplorer2_parse.log
-//     CIRCexplorer2 annotate -r circexp2_annotation.txt -g genome.fa -b back_spliced_junction.bed -o ${pair_id}
-//     """
-// }
 
 
 process CIRCEXP2_merge_samples { 

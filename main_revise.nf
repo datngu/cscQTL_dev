@@ -44,6 +44,9 @@ params.ciri2           = false
 params.circexplorer2   = false
 params.salmon          = false
 
+params.revise          = true
+
+
 
 
 log.info """\
@@ -81,6 +84,8 @@ log.info """\
 nextflow.enable.dsl=2
 
 include { RECOUNT_get_consensus; RENAME_circall; RENAME_ciri2; RENAME_circexp2; RECOUNT_get_peseudo_seqs; RECOUNT_index_peseudo_seqs; RECOUNT_mapping; RECOUNT_count; RECOUNT_merge_samples; RECOUNT_quantile_norm; RECOUNT_covariate_processing; RECOUNT_chrom_splitting; RECOUNT_qtl_mapping; RECOUNT_merge_qtl_results; RECOUNT_apply_qvalue; RECOUNT_export_all_peer_covariates; RECOUNT_export_optimal_peer_covariates; RECOUNT_qtl_mapping_nominal; RECOUNT_merge_qtl_results_nominal } from './module/recount'
+
+include { circRNA_FINDER_pipeline } from './module/circRNA_finder'
 
 
 workflow {
@@ -134,7 +139,9 @@ workflow {
         RECOUNT_merge_qtl_results_nominal(RECOUNT_qtl_mapping_nominal.out.collect())
     }
 
-
+    if( params.revise ){
+        circRNA_FINDER_pipeline(STAR_mapping.out)
+    }
 
     // This step is shared bw single methods!
     if( params.circall || params.ciri2 || params.circexplorer2){
@@ -1156,6 +1163,7 @@ process STAR_index_genome {
 
 // STAR_mapping(STAR_index_genome.out, read_pairs_ch)   
 
+
 process STAR_mapping {
     container 'ndatth/rna-tools:v0.0.0'
     publishDir "${params.trace_dir}/star_mapping", mode: 'symlink', overwrite: true
@@ -1167,7 +1175,7 @@ process STAR_mapping {
     tuple val(pair_id), path(reads)
 
     output:
-    tuple val("${pair_id}"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
+    tuple val("${pair_id}"), path("${pair_id}.bam"), path("${pair_id}.junction"),  path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
 
     script:
     """
@@ -1182,11 +1190,10 @@ process STAR_mapping {
         --chimSegmentMin 10 \
         --chimOutType Junctions \
 		--outFileNamePrefix ${pair_id}
-    
-    rm ${pair_id}Aligned.sortedByCoord.out.bam
+        mv ${pair_id}Aligned.sortedByCoord.out.bam ${pair_id}.bam
+        mv ${pair_id}Chimeric.out.junction ${pair_id}.junction
     """
 }
-
 
 
 
@@ -1217,21 +1224,21 @@ process CIRCEXP2_pipeline {
     memory '8 GB'
     
     input:
-
     path "genome.fa"
     path "circexp2_annotation.txt"
-    tuple val("${pair_id}"), path("${pair_id}Chimeric.out.junction"), path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
-
+    tuple val(pair_id), path("${pair_id}.bam"), path("${pair_id}.junction"),  path("${pair_id}SJ.out.tab"), path("${pair_id}Chimeric.out.sam")
 
     output:
     path("${pair_id}")
 
     script:
     """
-    CIRCexplorer2 parse -t STAR ${pair_id}Chimeric.out.junction > CIRCexplorer2_parse.log
+    CIRCexplorer2 parse -t STAR ${pair_id}.junction > CIRCexplorer2_parse.log
     CIRCexplorer2 annotate -r circexp2_annotation.txt -g genome.fa -b back_spliced_junction.bed -o ${pair_id}
     """
 }
+
+
 
 
 process CIRCEXP2_merge_samples { 

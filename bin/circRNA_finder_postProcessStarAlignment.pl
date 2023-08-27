@@ -99,25 +99,25 @@ foreach my $i (1..$nrLibs){
 
 
     ######
-    ## Make indexed bam files
-    chomp $samFiles[$i-1];
-    my $junctionBamFile = $outDir."/".basename($samFiles[$i-1]);
-    $junctionBamFile =~ s/\.sam/\.bam/g;
-    my $junctionSortedBamFile = $junctionBamFile;
-    $junctionSortedBamFile =~ s/\.bam/\.sorted.bam/g;
-    my $makeBamCmd = "samtools view -bS -o $junctionBamFile $samFiles[$i-1]";
-    my $sortBamCmd = "samtools sort -o $junctionSortedBamFile $junctionBamFile";
-    my $indexBamCmd = "samtools index $junctionSortedBamFile";
+    # ## Make indexed bam files
+    # chomp $samFiles[$i-1];
+    # my $junctionBamFile = $outDir."/".basename($samFiles[$i-1]);
+    # $junctionBamFile =~ s/\.sam/\.bam/g;
+    # my $junctionSortedBamFile = $junctionBamFile;
+    # $junctionSortedBamFile =~ s/\.bam/\.sorted.bam/g;
+    # my $makeBamCmd = "samtools view -bS -o $junctionBamFile $samFiles[$i-1]";
+    # my $sortBamCmd = "samtools sort -o $junctionSortedBamFile $junctionBamFile";
+    # my $indexBamCmd = "samtools index $junctionSortedBamFile";
 
-    print STDERR "Creating .bam file...\n";
-    system($makeBamCmd);
-    print STDERR "Sorting .bam file...\n";
-    system($sortBamCmd);
-    print STDERR "Indexing .bam file...\n";
-    system($indexBamCmd);
+    # print STDERR "Creating .bam file...\n";
+    # system($makeBamCmd);
+    # print STDERR "Sorting .bam file...\n";
+    # system($sortBamCmd);
+    # print STDERR "Indexing .bam file...\n";
+    # system($indexBamCmd);
 
     ######
     ## Clean up
-    system("rm ".$filteredStarFile);
-    system("rm ".$junctionBamFile);
+    # system("rm ".$filteredStarFile);
+    # system("rm ".$junctionBamFile);
 }
