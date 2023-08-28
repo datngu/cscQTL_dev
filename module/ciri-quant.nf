@@ -51,6 +51,8 @@ process CQ_CIRI2 {
 
     script:
     """
+    echo \$HOSTNAME
+
     CIRIquant -t 32 \
         -1 ${reads[0]} \
         -2 ${reads[1]} \
