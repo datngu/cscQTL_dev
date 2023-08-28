@@ -2,7 +2,7 @@ cd /net/fs-2/scale/OrionStore/Projects/Aqua-Faang/dat/cscqtl/tcell_cscQTL_dev/wo
 
 # qlogin --mem=32g --partition=orion --ntasks=16
 
-export SINGULARITY_BIND="/mnt:/mnt"
+export SINGULARITY_BIND="/tmp:/tmp, /mnt:/mnt"
 
 singularity shell /net/fs-2/scale/OrionStore/Projects/Aqua-Faang/dat/cscqtl/tcell_cscQTL_dev/work/singularity/ndatth-ciriquant-v1.0.1.img
 
