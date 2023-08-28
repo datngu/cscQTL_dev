@@ -13,7 +13,7 @@ process CQ_circRNA_finder {
     
 
     output:
-    path "${pair_id}_quant*"
+    path "${pair_id}.gtf"
 
     script:
     """
@@ -22,7 +22,7 @@ process CQ_circRNA_finder {
         -2 ${reads[1]} \
         --config $params.ciriquant_param \
         -o "." \
-        -p ${pair_id}_quant \
+        -p ${pair_id} \
         --circ ${pair_id}.bed \
         --tool circRNA_finder \
         --no-gene
@@ -47,7 +47,7 @@ process CQ_CIRI2 {
     
 
     output:
-    path "${pair_id}_quant*"
+    path "${pair_id}.gtf"
 
     script:
     """
