@@ -52,8 +52,9 @@ process CQ_circRNA_finder {
 
     script:
     """
+    
+    awk '{printf "%s\t%s\t%s\t%s:%s|%s\t.\t%s\n", \$1, \$2+1, \$3, \$1, \$2+1, \$3, \$6}' ${pair_id}.bed > ${pair_id}_CQ.gtf
 
-    awk '{printf "%s\t%s\t%s\t%s:%s|%s\t.\t%s\n", $1, $2+1, $3, $1, $2+1, $3, $6}' ${pair_id}.bed > ${pair_id}_CQ.gtf
     """
 }
 
