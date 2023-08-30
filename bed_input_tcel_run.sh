@@ -26,6 +26,6 @@ genotype="$PWD/data/tcel_hg38.vcf.gz"
 
 #nextflow run main.nf -resume --outdir "consensus_3" --reads $reads --genotype $genotype --consensus 3 --coloc true --circall true --ciri2 true --circexplorer2 true -profile cluster  -with-tower -with-report
 
-nextflow run main_revise.nf -resume --outdir "consensus_3" --reads $reads --genotype $genotype --consensus 3 --coloc true --circall true --ciri2 true --circexplorer2 true -profile cluster  -with-tower -with-report
+nextflow run cscQTL_bed.nf -resume --outdir "cscQTL_bed_ciri2" --bed_files '/mnt/project/Aqua-Faang/dat/cscqtl/data_revise/ciri2_requant/*.bed' --genotype $genotype --consensus 3 --coloc true -profile cluster  -with-tower -with-report
 
 
