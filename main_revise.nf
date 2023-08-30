@@ -88,7 +88,7 @@ nextflow.enable.dsl=2
 include { RECOUNT_get_consensus; RENAME_circall; RENAME_ciri2; RENAME_circexp2; RECOUNT_get_peseudo_seqs; RECOUNT_index_peseudo_seqs; RECOUNT_mapping; RECOUNT_count; RECOUNT_merge_samples; RECOUNT_quantile_norm; RECOUNT_covariate_processing; RECOUNT_chrom_splitting; RECOUNT_qtl_mapping; RECOUNT_merge_qtl_results; RECOUNT_apply_qvalue; RECOUNT_export_all_peer_covariates; RECOUNT_export_optimal_peer_covariates; RECOUNT_qtl_mapping_nominal; RECOUNT_merge_qtl_results_nominal } from './module/recount'
 
 include { circRNA_FINDER_pipeline } from './module/circRNA_finder'
-include { CQ_circRNA_finder; CQ_CIRI2, CQ_circexp2 } from './module/ciri-quant'
+include { CQ_circRNA_finder; CQ_CIRI2; CQ_circexp2 } from './module/ciri-quant'
 
 
 workflow {
