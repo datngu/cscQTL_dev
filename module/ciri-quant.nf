@@ -18,7 +18,7 @@ process CQ_circRNA_finder_bk {
     script:
     """
 
-    awk '{printf "%s\t%s\t%s\t%s:%s|%s\t.\t%s\n", $1, $2+1, $3, $1, $2+1, $3, $6}' ${pair_id}.bed > ${pair_id}_CQ.bed
+    awk '{printf "%s\t%s\t%s\t%s:%s|%s\t.\t%s\n", \$1, \$2+1, \$3, \$1, \$2+1, \$3, \$6}' ${pair_id}.bed > ${pair_id}_CQ.bed
 
     CIRIquant -t 32 \
         -1 ${reads[0]} \
