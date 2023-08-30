@@ -13,6 +13,7 @@ module load Nextflow/21.03
 module load singularity/rpm
 
 export TOWER_ACCESS_TOKEN=eyJ0aWQiOiA3OTAxfS4xNGY5NTFmOWNiZmEwNjZhOGFkYzliZTg3MDc4YWI4ZTRiYTk4ZmI5
+export NXF_SINGULARITY_CACHEDIR=/mnt/users/ngda/sofware/singularity
 
 
 cd /mnt/project/Aqua-Faang/dat/cscqtl/cscQTL_dev
