@@ -29,5 +29,5 @@ genotype="$PWD/data/tcel_hg38.vcf.gz"
 
 # nextflow run cscQTL_bed.nf -resume -w $PWD/cscQTL_bed_work --outdir "cscQTL_bed_ciri2" --bed_files '/mnt/project/Aqua-Faang/dat/cscqtl/data_revise/ciri2_requant/*.bed' --genotype $genotype --consensus 3 --coloc true -profile cluster  -with-tower -with-report
 
-nextflow run cscQTL_bed_BOVINCE.nf -resume -w $PWD/cscQTL_bed_work --outdir "cscQTL_bed_ciri2" --bed_files '/mnt/project/Aqua-Faang/dat/cscqtl/data_revise/ciri2_requant/*.bed' --genotype $genotype --consensus 3 --coloc true -profile cluster  -with-tower -with-report
+nextflow run cscQTL_bed_BOVINCE.nf -resume -w $PWD/cscQTL_bed_work --outdir "cscQTL_bed_ciri2" --bed_files '/mnt/project/Aqua-Faang/dat/cscqtl/data_revise/ciri2_requant/*.bed' --genotype $genotype --consensus 3 --coloc false -profile cluster  -with-tower -with-report
 
