@@ -98,7 +98,7 @@ workflow {
 
     if( params.coloc ){
         sumstat_ch = channel.fromPath( params.sumstat_files, checkIfExists: true )
-        COLOC_BED(params.meta_sumstat, RECOUNT_apply_qvalue.out, RECOUNT_merge_qtl_results_nominal.out, sumstat_ch.collec())
+        COLOC_BED(params.meta_sumstat, BED_apply_qvalue.out, BED_merge_qtl_results_nominal.out, sumstat_ch.collec())
         
     }
 }
@@ -122,7 +122,7 @@ process COLOC_BED {
 
     script:
     """
-    coloc.R meta=$meta_sumstat eqtl_normial=nominal_pass_all_chrom.tsv.gz eqtl_permute=recount.tsv
+    coloc.R meta=$meta_sumstat eqtl_normial=nominal_pass_all_chrom.tsv.gz eqtl_permute=cscQTL_bed.tsv
     """
 }
 
