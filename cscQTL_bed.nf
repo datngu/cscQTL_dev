@@ -98,7 +98,7 @@ workflow {
 
     if( params.coloc ){
         sumstat_ch = channel.fromPath( params.sumstat_files, checkIfExists: true )
-        COLOC_BED(params.meta_sumstat, BED_apply_qvalue.out, BED_merge_qtl_results_nominal.out, sumstat_ch.collec())
+        COLOC_BED(params.meta_sumstat, BED_apply_qvalue.out, BED_merge_qtl_results_nominal.out, sumstat_ch.collect())
         
     }
 }
