@@ -54,25 +54,6 @@ for(file in in_files){
 
 }
 
-for(file in in_files){
-    circall = fread(file)
-    #circall = circall[circall$bsj_count >= bsj_filter,]
-    info = strsplit(circall$circRNA, split = "__", fixed = T)
-    circall$chr = sapply(info, FUN = function(x){unlist(x)[1]})
-    circall$start = sapply(info, FUN = function(x){unlist(x)[2]})
-    #circall$start = as.integer(circall$start)
-    circall$end = sapply(info, FUN = function(x){unlist(x)[3]})
-    circall$geneID = sapply(info, FUN = function(x){unlist(x)[4]})
-    circall$bed_ID = paste(circall$chr, circall$start, circall$end, circall$geneID, sep = "__")
-
-    s = basename(file)
-    s = unlist(strsplit(s,".", fixed = TRUE))[1]
-    circall$TPM = circall$TPM
-    #circall$TPM = circall$bsj_count
-    all_circRNA[,s] = circall$TPM[match(all_circRNA$ID, circall$bed_ID)]
-    all_circRNA_count[,s] = circall$bsj_count[match(all_circRNA$ID, circall$bed_ID)]
-
-}
 
 all_circRNA[is.na(all_circRNA)] = 0
 all_circRNA_count[is.na(all_circRNA_count)] = 0
