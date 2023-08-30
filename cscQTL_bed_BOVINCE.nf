@@ -161,7 +161,7 @@ process BED_quantile_norm {
  
     script:
     """
-    quantile_norm.R res_merged.tsv meta.csv bed_quantile_norm.tsv
+    quantile_norm_log2.R res_merged.tsv meta.csv bed_quantile_norm.tsv
     """
 }
 
