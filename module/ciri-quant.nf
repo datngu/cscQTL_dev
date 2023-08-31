@@ -15,19 +15,19 @@ process CQ_circRNA_finder {
     output:
     path "${pair_id}.gtf"
 
-    script:
+    shell:
     """
-    echo \$HOSTNAME
+    echo $HOSTNAME
 
-    awk '{printf "%s\t%s\t%s\t%s:%s|%s\t.\t%s\n", \$1, \$2+1, \$3, \$1, \$2+1, \$3, \$6}' ${pair_id}.bed > ${pair_id}_CQ.bed
+    awk '{printf "%s\t%s\t%s\t%s:%s|%s\t.\t%s\n", $1, $2+1, $3, $1, $2+1, $3, $6}' ${pair_id}.bed > ${pair_id}_CQ.bed
 
     CIRIquant -t 32 \
-        -1 ${reads[0]} \
-        -2 ${reads[1]} \
+        -1 !{reads[0]} \
+        -2 !{reads[1]} \
         --config $params.ciriquant_param \
         -o "." \
-        -p ${pair_id} \
-        --bed ${pair_id}_CQ.bed \
+        -p !{pair_id} \
+        --bed !{pair_id}_CQ.bed \
         --no-gene
 
     rm -rf align
