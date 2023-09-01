@@ -82,13 +82,15 @@ process CQ_circexp2 {
     """
     echo \$HOSTNAME
 
+    circRNA_finder_convert_bed.sh ${pair_id}.circexp2 > ${pair_id}_CQ.bed
+
     CIRIquant -t 32 \
         -1 ${reads[0]} \
         -2 ${reads[1]} \
         --config $params.ciriquant_param \
         -o "." \
         -p ${pair_id} \
-        --circ ${pair_id}.circexp2 \
+        --circ ${pair_id}_CQ.bed \
         --tool CIRCexplorer2 \
         --no-gene
 
