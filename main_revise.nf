@@ -148,7 +148,7 @@ workflow {
         CQ_circRNA_finder(read_pairs_ch, circRNA_FINDER_pipeline.out.collect())
 
         CQ_CIRI2(read_pairs_ch, RENAME_ciri2.out.collect())
-        //CQ_circexp2(read_pairs_ch, RENAME_circexp2.out.collect())
+        CQ_circexp2(read_pairs_ch, RENAME_circexp2.out.collect())
     }
 
     // This step is shared bw single methods!
