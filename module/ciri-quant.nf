@@ -90,8 +90,7 @@ process CQ_circexp2 {
         --config $params.ciriquant_param \
         -o "." \
         -p ${pair_id} \
-        --circ ${pair_id}_CQ.bed \
-        --tool CIRCexplorer2 \
+        --bed ${pair_id}_CQ.bed \
         --no-gene
 
     rm -rf align
