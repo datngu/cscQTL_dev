@@ -29,7 +29,7 @@ meta='/mnt/ScratchProjects/Aqua-Faang/dat_projects/cscqtl_paper/data/meta_358_eu
 
 #nextflow run main.nf -resume --outdir "EUR_358_samples" --reads $reads --genotype $genotype --meta $meta --consensus 3 --coloc true --circall true --ciri2 true --circexplorer2 true -with-report -profile cluster
 
-nextflow run main.nf -resume --outdir "EUR_358_samples" --reads $reads --genotype $genotype --meta $meta --consensus 3 --coloc true --circall true --ciri2 true --circexplorer2 true -profile cluster  -with-tower -with-report
+nextflow run main.nf -resume --outdir "EUR_358_samples" --reads $reads --genotype $genotype --meta $meta --consensus 3 --coloc true --bsj_filter 1 -profile cluster  -with-tower -with-report
 
 
 
